@@ -1,0 +1,135 @@
+<mxfile host="app.diagrams.net" modified="2026-05-07T16:20:00.000Z" agent="Kiro" version="21.0.0" type="device">
+  <diagram id="solution-architecture" name="GC Web Crawler - Knowledge Base Builder">
+    <mxGraphModel dx="1200" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="700" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;Government of Canada — Web Crawler &amp; Knowledge Base&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size: 11px; color: #666;&quot;&gt;URL list → Fetch &amp; Filter → S3 → Vectorized Knowledge Base &amp;nbsp;|&amp;nbsp; Region: ca-central-1&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="320" y="15" width="580" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Step 1: Input URLs -->
+        <mxCell id="input" value="&lt;b&gt;URL List&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 9px; color: #555;&quot;&gt;laws-lois.justice.gc.ca&lt;br&gt;tbs-sct.canada.ca&lt;br&gt;publications.gc.ca&lt;br&gt;...&lt;/font&gt;" style="shape=document;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#4CAF50;fontSize=11;shadow=1;size=0.15;" vertex="1" parent="1">
+          <mxGeometry x="60" y="240" width="140" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Step 2: Filter Rules -->
+        <mxCell id="filter-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#FFA000;arcSize=10;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="210" width="200" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="filter-title" value="&lt;b&gt;Filter Rules&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="335" y="218" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="filter-allow" value="✅ &lt;b&gt;Allow:&lt;/b&gt; .gc.ca, .canada.ca" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="295" y="252" width="175" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="filter-block1" value="❌ &lt;b&gt;Block:&lt;/b&gt; Non-GC domains" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="295" y="277" width="160" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="filter-block2" value="❌ &lt;b&gt;Block:&lt;/b&gt; .pdf, .png, .jpg, ..." style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="295" y="302" width="175" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="filter-note" value="&lt;font style=&quot;font-size: 9px; color: #888;&quot;&gt;Enforced before HTTP request&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="300" y="335" width="160" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Step 3: AI Agent -->
+        <mxCell id="agent" value="&lt;b&gt;AI Crawler Agent&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px; color: #555;&quot;&gt;Bedrock AgentCore&lt;br&gt;Claude Sonnet 4.6&lt;br&gt;&lt;br&gt;Fetch → Extract → Store&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1976D2;fontSize=11;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="230" width="160" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- Step 4: GC Websites -->
+        <mxCell id="websites" value="&lt;b&gt;GC Websites&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 9px;&quot;&gt;justice.gc.ca&lt;br&gt;tbs-sct.canada.ca&lt;br&gt;canada.ca&lt;/font&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#9E9E9E;fontSize=11;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="420" width="160" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Step 5: S3 -->
+        <mxCell id="s3" value="&lt;b&gt;Amazon S3&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 9px;&quot;&gt;Markdown docs&lt;br&gt;/crawled-docs/&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#E8F5E9;strokeColor=#4CAF50;fontSize=11;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="820" y="220" width="120" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Step 6: Knowledge Base -->
+        <mxCell id="kb" value="&lt;b&gt;Bedrock&lt;br&gt;Knowledge Base&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 9px;&quot;&gt;Auto-vectorized&lt;br&gt;OpenSearch Serverless&lt;/font&gt;" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#FCE4EC;strokeColor=#E91E63;fontSize=11;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="370" width="160" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Step 7: RAG Query -->
+        <mxCell id="rag" value="&lt;b&gt;RAG Queries&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 9px;&quot;&gt;Ask questions about&lt;br&gt;GC policies &amp; laws&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#FF9800;fontSize=11;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="380" width="130" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Rejected output -->
+        <mxCell id="rejected" value="&lt;font style=&quot;font-size: 10px; color: #D32F2F;&quot;&gt;&lt;b&gt;Rejected&lt;/b&gt;&lt;br&gt;PDFs, images,&lt;br&gt;non-GC domains&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEBEE;strokeColor=#E57373;dashed=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="290" y="430" width="110" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows -->
+        <!-- Input to Filter -->
+        <mxCell id="a1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=2;strokeColor=#4CAF50;" edge="1" source="input" target="filter-box" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a1-label" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;①&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fillColor=#E8F5E9;rounded=1;" vertex="1" connectable="0" parent="a1">
+          <mxGeometry x="-0.1" relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Filter to Agent (allowed) -->
+        <mxCell id="a2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=2;strokeColor=#1976D2;" edge="1" source="filter-box" target="agent" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a2-label" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;② Allowed&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fillColor=#E3F2FD;rounded=1;" vertex="1" connectable="0" parent="a2">
+          <mxGeometry x="-0.1" relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Filter to Rejected -->
+        <mxCell id="a-reject" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=1.5;strokeColor=#E57373;dashed=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" source="filter-box" target="rejected" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Agent to Websites -->
+        <mxCell id="a3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=2;strokeColor=#9E9E9E;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" source="agent" target="websites" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a3-label" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;③ Fetch&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fillColor=#F5F5F5;rounded=1;" vertex="1" connectable="0" parent="a3">
+          <mxGeometry x="-0.2" relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Agent to S3 -->
+        <mxCell id="a4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=2;strokeColor=#4CAF50;exitX=1;exitY=0.3;entryX=0;entryY=0.5;" edge="1" source="agent" target="s3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a4-label" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;④ Store&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fillColor=#E8F5E9;rounded=1;" vertex="1" connectable="0" parent="a4">
+          <mxGeometry x="-0.1" relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- S3 to KB -->
+        <mxCell id="a5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=2;strokeColor=#E91E63;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" source="s3" target="kb" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a5-label" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;⑤ Ingest &amp;&lt;br&gt;Vectorize&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fillColor=#FCE4EC;rounded=1;" vertex="1" connectable="0" parent="a5">
+          <mxGeometry x="-0.1" relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- KB to RAG -->
+        <mxCell id="a6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=2;strokeColor=#FF9800;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="kb" target="rag" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a6-label" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;⑥ Query&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fillColor=#FFF3E0;rounded=1;" vertex="1" connectable="0" parent="a6">
+          <mxGeometry x="-0.1" relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Bottom summary -->
+        <mxCell id="summary" value="&lt;font style=&quot;font-size: 11px;&quot;&gt;&lt;b&gt;Flow:&lt;/b&gt; Provide a list of URLs → Filter rules enforce GC-only domains and block PDFs/images → Agent fetches allowed pages and extracts content → Stored in S3 as markdown → Auto-vectorized into Knowledge Base → Ready for RAG&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#BDBDBD;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="120" y="560" width="960" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Tech stack note -->
+        <mxCell id="tech" value="&lt;font style=&quot;font-size: 10px; color: #888;&quot;&gt;Strands Agents SDK &amp;nbsp;|&amp;nbsp; Claude Sonnet 4.6 (CRIS) &amp;nbsp;|&amp;nbsp; Bedrock AgentCore Runtime &amp;nbsp;|&amp;nbsp; Titan Embed V2 &amp;nbsp;|&amp;nbsp; OpenSearch Serverless&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="270" y="610" width="640" height="25" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
